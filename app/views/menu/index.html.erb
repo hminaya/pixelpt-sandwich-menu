@@ -1,0 +1,83 @@
+<div class="row">
+  <br>
+  <a href="#myModal" role="button" class="btn btn-large btn-primary pull-right" data-toggle="modal">Add new Sandwich</a>
+  <br><br>
+</div>
+
+<div class="row">
+&nbsp;
+</div>
+
+<div class="row pull-left">
+  <ul class="thumbnails">
+
+    <% @result["sandwiches"].each do |sandwich| %>
+
+        <li class="span4">
+          <div class="thumbnail">
+            <img src="/assets/sandwich.jpg" data-src="" alt="">
+            <h4><%= sandwich["title"] %></h4>
+
+            <p><b><span class="label label-info">Ingredients:</span></b>
+            <ul>
+              <% sandwich["ingredients"].each do |ing| %>
+                  <li><%= ing["name"] %></li>
+              <% end %>
+            </ul>
+            </p>
+          </div>
+        </li>
+
+    <% end %>
+  </ul>
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Want to add a new sandwich?</h3>
+  </div>
+  <div class="modal-body">
+
+    <form id="myForm" class="form-search" method="post" action="ns">
+
+      <label>Name</label>
+      <input id="sw_name" name="sw_name" type="text" placeholder="">
+      <label>Price</label>
+      <input id="sw_price" name="sw_price" type="text" placeholder="">
+      <br><br>
+      Ingredients:
+      <br>
+      <!--
+      Obviamente hay mejores formas de agregar los ingredientes, preferiblemente algo dinamico
+      donde puedan agregar X cantidad. Pero lo deje asi por brevedad ya que es solo un demo.
+      -->
+      <input id="ig_1" name="ig_1" type="text" > <input id="qu_1" name="qu_1" type="number" class="input-mini" ><br>
+      <input id="ig_2" name="ig_2" type="text" > <input id="qu_2" name="qu_2" type="number" class="input-mini" ><br>
+      <input id="ig_3" name="ig_3" type="text" > <input id="qu_3" name="qu_3" type="number" class="input-mini" ><br>
+      <input id="ig_4" name="ig_4" type="text" > <input id="qu_4" name="qu_4" type="number" class="input-mini" ><br>
+      <input id="ig_5" name="ig_5" type="text" > <input id="qu_5" name="qu_5" type="number" class="input-mini" ><br>
+
+    </form>
+
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button class="btn btn-primary" id="Send" >Add</button>
+  </div>
+</div>
+
+<script>
+  $(function(){
+
+      $("#Send").click(function(){
+
+          $("#myForm").submit();
+
+          $("#myModal").modal('hide');
+
+      });
+
+  });
+</script>
